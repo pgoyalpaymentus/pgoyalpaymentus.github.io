@@ -56890,7 +56890,7 @@ fE(a,b){return this.aC6(0,b)},
 aC6(a,b){var s=0,r=A.Q(t.H),q=1,p,o=this,n,m,l,k,j,i,h
 var $async$fE=A.R(function(c,d){if(c===1){p=d
 s=q}while(true)switch(s){case 0:q=3
-n=b.gdv(0)+".json"
+n="assets/"+b.gdv(0)+".json"
 if(A.h7())n="assets/"+b.gdv(0)+".json"
 s=6
 return A.a_($.ts().aCa(n),$async$fE)
