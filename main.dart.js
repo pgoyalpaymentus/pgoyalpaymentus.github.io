@@ -58204,8 +58204,8 @@ A.aix.prototype={
 $2(a,b){var s
 if(A.boY()){s=b.b
 if(s.j(0)==="/"||s.j(0)==="/signin")return"/home"
-else return s.j(0)}else if(b.b.j(0)==="/signin")return"/signin"
-else return"/"},
+else return s.j(0)}else if(b.b.j(0)==="/")return"/"
+else return"/signin"},
 $S:135}
 A.ain.prototype={
 $2(a,b){return A.oH(!0,new A.JU(null),B.a_,!0)},
