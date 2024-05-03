@@ -52,5 +52,8 @@
   "auth.login.codeNotFound": "Su sesión de inicio de sesión ha caducado",
   "account.validation.failed": "La información de la cuenta no es válida.",
   "duplicate.accounts": "la cuenta ya existe",
-  "local.error.something.went.wrong":"Algo salió mal."
+  "local.error.something.went.wrong":"Algo salió mal.",
+  "local.choose.payment.card":"Elige la tarjeta de pago.",
+  "local.maximum.amount.allowed":"El monto máximo permitido es de",
+  "local.amount.shouldbe.minimum":"El monto debe ser como mínimo"
 }
