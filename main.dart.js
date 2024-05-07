@@ -57813,7 +57813,8 @@ D(a){return A.pX(A.Ao(new A.aD0(this)),new A.aD1(),t.Xw)},
 atV(){$.bW.x2$.push(new A.aCX(this))},
 V5(){$.bW.x2$.push(new A.aCY(this))},
 a8O(a){var s,r,q
-try{s=A.bdf()
+try{document.cookie="bw-session-token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2NTllNGRiZTE0M2NhNjQ0YzA3N2RjZjEiLCJpZGVudGl0eUlkIjoiNjU5ZTRkYmU4ZjcxMmFiMjBiM2ZiMGFhIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIiwiYmlsbHdhbGxldCIsInJlZnJlc2gtdG9rZW4iXSwianRpIjoiZjJlOTU2MTktMmU2Yi00YjE4LWIxNzItNzYzMWRkZDUyMWI3IiwiaXNzIjoiQkxXVCIsImlhdCI6MTcxNTA1NTAzNSwiZXhwIjoxNzE1MDU2ODM1fQ.riX1BqADuYcxGPdOIjHL4sjwI9vnTmOvgwO_lqg5RMg"
+s=A.bdf()
 if(s!=null&&J.cy(s)>0){$.d1().ch=s
 A.bk(a,t.Xw).t(0,new A.uK())}else this.V5()}catch(q){r=A.as(q)
 A.pD("Error fetching cookies data: "+A.k(r))}}}
