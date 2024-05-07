@@ -52610,6 +52610,7 @@ if(J.f_(l)!==200){if(t.a.b(J.dB(l))&&J.eZ(J.dB(l),"error")){i=J.aR(J.dB(l),"erro
 if(!b.d)b.a.$1(new A.iZ(i))}else if(!b.d)b.a.$1(new A.iZ("Couldn't refresh your session."))}else{k=A.j6(J.dB(l))
 i=$.d1()
 i.as=k.as
+i.at=k.at
 A.pE(i)
 document.cookie="bw-session-token="
 if(!b.d)b.a.$1(new A.vG())}case 8:q=1
@@ -57815,7 +57816,7 @@ D(a){return A.pX(A.Ao(new A.aD0(this)),new A.aD1(),t.Xw)},
 atV(){$.bW.x2$.push(new A.aCX(this))},
 V5(){$.bW.x2$.push(new A.aCY(this))},
 a8O(a){var s,r,q
-try{document.cookie="bw-session-token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2NTllNGRiZTE0M2NhNjQ0YzA3N2RjZjEiLCJpZGVudGl0eUlkIjoiNjU5ZTRkYmU4ZjcxMmFiMjBiM2ZiMGFhIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIiwiYmlsbHdhbGxldCIsInJlZnJlc2gtdG9rZW4iXSwianRpIjoiMjliODQ1NzMtZjg3My00ZWE4LWFlMTAtZGRjZTZiYTJjMGExIiwiaXNzIjoiQkxXVCIsImlhdCI6MTcxNTA3NDc5OCwiZXhwIjoxNzE1MDc2NTk4fQ.h9OwsNjQWI8vEqyjnKaO8aRR8lcSg9mx-YOQOM44hw0"
+try{document.cookie="bw-session-token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2NTllNGRiZTE0M2NhNjQ0YzA3N2RjZjEiLCJpZGVudGl0eUlkIjoiNjU5ZTRkYmU4ZjcxMmFiMjBiM2ZiMGFhIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIiwiYmlsbHdhbGxldCIsInJlZnJlc2gtdG9rZW4iXSwianRpIjoiYjRkNDBmYTgtZmM2Yi00NjZmLThkNGQtNTZmNDIzMjM5NzMwIiwiaXNzIjoiQkxXVCIsImlhdCI6MTcxNTA3NjI0MiwiZXhwIjoxNzE1MDc4MDQyfQ.4zIL9bRoftPBEFrYrN23fiBY76ZTY14DYLGZnXCU0aw"
 s=A.bdf()
 if(s!=null&&J.cy(s)>0){$.d1().ch=s
 A.bk(a,t.Xw).t(0,new A.uK())}else this.V5()}catch(q){r=A.as(q)

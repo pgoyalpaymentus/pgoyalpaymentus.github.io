@@ -106,12 +106,12 @@ const RESOURCES = {"assets/AssetManifest.bin": "2768d50d283062584c72668ea8c5f09b
 "icons/Icon-maskable-192.png": "606a09f229aad44621d1c3eb971b6dcb",
 "icons/Icon-maskable-512.png": "397991eaa4388745543db715f8fb2f91",
 "icon_blue_poweredbypaymentus.png": "5a5af15436a6f9b9308b9b2564d4145c",
-"index.html": "8a50c556da530a1a28da3a481f4745e8",
-"/": "8a50c556da530a1a28da3a481f4745e8",
+"index.html": "b146fb4f60ba17099527bea0cf2e7c03",
+"/": "b146fb4f60ba17099527bea0cf2e7c03",
 "logo_blue_bill_wallet.png": "090ed870014304ddfd108533a4aff606",
 "logo_blue_bill_wallet_svg.png": "90a62bc17480b1024d6d706d95bf4b7e",
 "logo_blue_bill_wallet_svg_v6.png": "697dfe5c7687962aea5991dde3feae09",
-"main.dart.js": "c60cfaa4774fba5e829046e55379921f",
+"main.dart.js": "11afbb5e098600b79d45c46f1be6375c",
 "manifest.json": "0290eac3811fa137314cc82cc18b687e",
 "version.json": "d1685921c569eaebb686e1851ff624a5"};
 // The application shell files that are downloaded before a service worker can
