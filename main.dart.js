@@ -62006,7 +62006,7 @@ else if(b instanceof A.wS)return s.e=s.amq(a)
 else if(b instanceof A.wX)return s.e=s.amr(a)
 else if(b instanceof A.L4)return s.e=s.amC(a,b)
 else if(b instanceof A.i0||b instanceof A.fo)return s.e},
-am9(a){var s,r,q,p,o,n,m,l=null,k=A.a5(l,l,B.i,l,l,l,l,6*$.ch.aJ()/100,l,l,l,l,l),j=A.dy("assets/logo_blue_bill_wallet_svg_v6.png",l,80,l),i=A.a4(l,4*$.ch.aJ()/100,l),h=t.J,g=A.R(A.o(a,B.e,h).ga8T()+" test",l,l,l,l,B.ps,l,l),f=A.a4(l,3*$.ch.aJ()/100,l),e=A.bkm(B.tb,350,B.tc)
+am9(a){var s,r,q,p,o,n,m,l=null,k=A.a5(l,l,B.i,l,l,l,l,6*$.ch.aJ()/100,l,l,l,l,l),j=A.dy("assets/logo_blue_bill_wallet_svg_v6.png",l,80,l),i=A.a4(l,4*$.ch.aJ()/100,l),h=t.J,g=A.R(A.o(a,B.e,h).ga8T(),l,l,l,l,B.ps,l,l),f=A.a4(l,3*$.ch.aJ()/100,l),e=A.bkm(B.tb,350,B.tc)
 e=t.Pu.a($.ai1()).aHd(e)
 s=A.a4(l,2*$.ch.aJ()/100,l)
 r=A.cF(3)
