@@ -55,5 +55,7 @@
   "local.error.something.went.wrong":"Something went wrong.",
   "local.choose.payment.card":"Choose Payment Card.",
   "local.maximum.amount.allowed":"Maximum amount allowed is",
-  "local.amount.shouldbe.minimum":"Amount should be minimum"
+  "local.amount.shouldbe.minimum":"Amount should be minimum",
+  "user.verifyEmail.error": "Email verification failed.",
+  "local.info.emailVerifiedSuccessfully":"Email verified successfully."
 }

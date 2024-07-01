@@ -55,5 +55,7 @@
   "local.error.something.went.wrong":"Algo salió mal.",
   "local.choose.payment.card":"Elige la tarjeta de pago.",
   "local.maximum.amount.allowed":"El monto máximo permitido es de",
-  "local.amount.shouldbe.minimum":"El monto debe ser como mínimo"
+  "local.amount.shouldbe.minimum":"El monto debe ser como mínimo",
+  "user.verifyEmail.error": "La vérification de l'e-mail a échoué.",
+  "local.info.emailVerifiedSuccessfully":"E-mail vérifié avec succès."
 }
