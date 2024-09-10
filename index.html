@@ -18,88 +18,21 @@
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="BillWallet™ - The World's first Omni-Channel and Bill Payment Wallet">
-
-  <!-- Cache-Control Meta Tag -->
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
+  <meta name="description" content="A new Flutter project.">
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="BillWallet™">
+  <meta name="apple-mobile-web-app-title" content="caching_issue_fix">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="48x48" href="icons/favicon-48x48.png">
-  <link rel="icon" type="image/png" sizes="128x128" href="icons/favicon-128x128.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="icons/favicon-192x192.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="icons/favicon-512x512.png">
+  <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <!-- Apple Touch Icon for iOS -->
-  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
-
-  <title>BillWallet</title>
+  <title>caching_issue_fix</title>
   <link rel="manifest" href="manifest.json">
-  <script type="text/javascript" src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"></script>
-  <script>
-    // The value below is injected by flutter build, do not touch.
-    var serviceWorkerVersion = "2281724305";
-  </script>
-  <!-- This script adds the flutter initialization JS code -->
-  <script src="flutter.js" defer></script>
 </head>
 <body>
-  <script>
-    try {
-      let devBwData = {
-        configOptions: {
-          "MAINTENANCE_MODE_APPS": [],
-          "RECAPTCHA_ENABLED": true,
-          "PAYPAL_PAYLATER_ENABLED": true,
-          "PAYPAL_PAYLATER_CLIENTID": "test",
-          "PAYPAL_PAYLATER_MERCHANTID": "8XV9TCEJH9N6Q",
-          "EXTERNAL_IDP_GOOGLE_CLIENT_ID": "206615994153-bv15i0m2vn1crq8qe8h9qdr0l3uqhm16.apps.googleusercontent.com",
-          "EXTERNAL_IDP_APPLE_CLIENT_ID": "com.billwallet.dev",
-          "LEGAL_DOC_TERMS_LAST_UPDATED_ON": "2024-01-01",
-          "LEGAL_DOC_PRIVACY_LAST_UPDATED_ON": "2024-01-01",
-          "LEGAL_DOC_AUTHORIZATION_LAST_UPDATED_ON": "2024-01-01",
-        }
-      };
-
-      let injectedBwData = `<$- model.billWalletData $>`; // this will be replaced by the server before sending the response
-
-      window.billWalletData = /model\.billWalletData/.test(injectedBwData)  // if not replaced by the server
-              ? devBwData   // use the dev BW data
-              : JSON.parse(injectedBwData);  // otherwise, use injected server BW data
-
-    } catch (err) {
-      console.log('Unable to parse Bill Wallet initial data');
-      console.error(err);
-    }
-  </script>
-  <script>
-    window.addEventListener('load', function(ev) {
-      if (!window._flutter) {
-  window._flutter = {};
-}
-_flutter.buildConfig = {"engineRevision":"f6344b75dcf861d8bf1f1322780b8811f982e31a","builds":[{"compileTarget":"dart2js","renderer":"html","mainJsPath":"main.dart.js"}]};
-
-      // Download main.dart.js
-       console.log(serviceWorkerVersion);
-      _flutter.loader.load({
-        serviceWorker: {
-           entrypointUrl: "main.dart.js?v=" + serviceWorkerVersion,
-        },
-        onEntrypointLoaded: function(engineInitializer) {
-          engineInitializer.initializeEngine().then(function(appRunner) {
-            appRunner.runApp();
-          });
-        }
-      });
-    });
-  </script>
+  <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>
