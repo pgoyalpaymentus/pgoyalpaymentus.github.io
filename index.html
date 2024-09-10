@@ -31,33 +31,8 @@
 
   <title>caching_issue_fix</title>
   <link rel="manifest" href="manifest.json">
-  <script>
-    // The value below is injected by flutter build, do not touch.
-    var serviceWorkerVersion = "2504746906";
-  </script>
 </head>
 <body>
   <script src="flutter_bootstrap.js" async></script>
-  <script>
-    window.addEventListener('load', function(ev) {
-      if (!window._flutter) {
-  window._flutter = {};
-}
-_flutter.buildConfig = {"engineRevision":"f6344b75dcf861d8bf1f1322780b8811f982e31a","builds":[{"compileTarget":"dart2js","renderer":"auto","mainJsPath":"main.dart.js"}]};
-
-      console.log("ServiceWorkerVersion : "+serviceWorkerVersion);
-      // Download main.dart.js
-      _flutter.loader.load({
-        serviceWorker: {
-           entrypointUrl: "main_v1.0.0.dart.js?v=" + serviceWorkerVersion,
-        },
-        onEntrypointLoaded: function(engineInitializer) {
-          engineInitializer.initializeEngine().then(function(appRunner) {
-            appRunner.runApp();
-          });
-        }
-      });
-    });
-  </script>
 </body>
 </html>
