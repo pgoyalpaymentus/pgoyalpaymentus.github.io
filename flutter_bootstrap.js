@@ -6,11 +6,54 @@ Read more: https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts
 if (!window._flutter) {
   window._flutter = {};
 }
-_flutter.buildConfig = {"engineRevision":"f6344b75dcf861d8bf1f1322780b8811f982e31a","builds":[{"compileTarget":"dart2js","renderer":"html","mainJsPath":"main.dart.js?v=941517470"}]};
 
+//_flutter.buildConfig = {"engineRevision":"f6344b75dcf861d8bf1f1322780b8811f982e31a","builds":[{"compileTarget":"dart2js","renderer":"html","mainJsPath":"main.dart.js?1.0.8"}]};
 
-_flutter.loader.load({
-  serviceWorkerSettings: {
-    serviceWorkerVersion: "941517470"
+// Function to convert an ArrayBuffer to a hex string
+function bufferToHex(buffer) {
+  const view = new DataView(buffer);
+  let hexString = '';
+  for (let i = 0; i < view.byteLength; i++) {
+    const byte = view.getUint8(i);
+    hexString += byte.toString(16).padStart(2, '0');
   }
-});
+  return hexString;
+}
+
+// Function to hash a string using SHA-256
+async function hashString(str) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(str);
+  const hashBuffer = await crypto.subtle.digest('SHA-1', data);
+  return bufferToHex(hashBuffer);
+}
+
+// Fetch version and update configuration
+fetch('/version.json')
+  .then(response => response.json())
+  .then(async data => {
+    console.log('App Version:', data.version);
+
+    // Hash the version
+    const hashedVersion = await hashString(data.version);
+    console.log('Hashed Version:', hashedVersion);
+
+    // Use the hashed version dynamically in your code
+    _flutter.buildConfig = {
+      "engineRevision": "f6344b75dcf861d8bf1f1322780b8811f982e31a",
+      "builds": [
+        {
+          "compileTarget": "dart2js",
+          "renderer": "html",
+          "mainJsPath": `main.dart.js?v=${hashedVersion}`
+        }
+      ]
+    };
+
+    _flutter.loader.load({
+      serviceWorkerSettings: {
+        serviceWorkerVersion: hashedVersion
+      }
+    });
+  })
+  .catch(error => console.error('Error loading version:', error));
