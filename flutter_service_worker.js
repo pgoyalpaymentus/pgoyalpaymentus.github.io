@@ -114,7 +114,7 @@ const RESOURCES = {"assets/AssetManifest.bin": "753363454e3d20e055520ab602df3e84
 "logo_blue_bill_wallet.png": "090ed870014304ddfd108533a4aff606",
 "logo_blue_bill_wallet_svg.png": "90a62bc17480b1024d6d706d95bf4b7e",
 "logo_blue_bill_wallet_svg_v6.png": "697dfe5c7687962aea5991dde3feae09",
-"main.dart.js": "9d6994f7778a177afb375c457a30e4ca",
+"main.dart.js": "2b11c0b682b559bca62d2bff7399492d",
 "manifest.json": "8fe42f1b497dc98edb14a474842f78ce",
 "version.json": "e7c412d8a8f857e12f8110094ca6bc11"};
 // The application shell files that are downloaded before a service worker can
