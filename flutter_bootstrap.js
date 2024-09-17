@@ -6,41 +6,15 @@ Read more: https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts
 if (!window._flutter) {
   window._flutter = {};
 }
+_flutter.buildConfig = {"engineRevision":"f6344b75dcf861d8bf1f1322780b8811f982e31a","builds":[{"compileTarget":"dart2js","renderer":"html","mainJsPath":"main.dart.js"}]};
 
-//_flutter.buildConfig = {"engineRevision":"f6344b75dcf861d8bf1f1322780b8811f982e31a","builds":[{"compileTarget":"dart2js","renderer":"html","mainJsPath":"main.dart.js"}]};
 
-/*_flutter.loader.load({
-  serviceWorkerSettings: {
-    serviceWorkerVersion: "3528957968"
-  }
-});*/
+// Modify only the mainJsPath by adding query string
+_flutter.buildConfig.builds[0].mainJsPath = 'main.dart.js?v=' + "616816673";
 
- const dateTime = new Date().getTime();
-
-// Use the hashed version dynamically in your code
- _flutter.buildConfig = {
-    "engineRevision": "f6344b75dcf861d8bf1f1322780b8811f982e31a",
-    "builds": [
-     {
-        "compileTarget": "dart2js",
-        "renderer": "html",
-        "mainJsPath": `main.dart.js?v=` + dateTime
-      }
-    ]
- };
-
- _flutter.loader.load({
+//Initialize configuration settings and start the application boot process
+_flutter.loader.load({
     serviceWorkerSettings: {
-        serviceWorkerVersion: dateTime
-    }
- });
-
-     // Force service worker update to use the new version
- if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistration().then(registration => {
-    if (registration) {
-      registration.update(); // Force an update to check for a new service worker
-      console.log('Service worker updated with version:', dateTime);
-    }
-   });
- }
+        serviceWorkerVersion: "616816673",
+   }
+});
