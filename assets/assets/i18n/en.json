@@ -50,12 +50,14 @@
   "auth.login.wrongCode": "The code you entered is incorrect",
   "auth.login.retryLimitReached": "Your account has been temporarily locked; please wait {retryAfterMinutes} minutes",
   "auth.login.codeNotFound": "Your login session has expired",
+  "auth.token.invalid": "Token is expired.",
   "account.validation.failed": "Account information is invalid",
   "duplicate.accounts": "Account already exists",
-  "local.error.something.went.wrong":"Something went wrong.",
+  "local.error.something.went.wrong.please.try.again":"Something went wrong. Please try again.",
   "local.choose.payment.card":"Choose Payment Card.",
   "local.maximum.amount.allowed":"Maximum amount allowed is",
   "local.amount.shouldbe.minimum":"Amount should be minimum",
   "user.verifyEmail.error": "Email verification failed.",
-  "local.info.emailVerifiedSuccessfully":"Email verified successfully."
+  "local.info.emailVerifiedSuccessfully":"Email verified successfully.",
+  "local.error.invalid.reCaptchav3.token":"Google reCaptchav3 Token Generation Failed."
 }

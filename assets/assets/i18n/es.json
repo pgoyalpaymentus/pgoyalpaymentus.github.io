@@ -50,12 +50,14 @@
   "auth.login.wrongCode": "El código que ingresaste es incorrecto",
   "auth.login.retryLimitReached": "Su cuenta ha sido bloqueada temporalmente; espere {retryAfterMinutes} minutos",
   "auth.login.codeNotFound": "Su sesión de inicio de sesión ha caducado",
+  "auth.token.invalid": "El token ha caducado.",
   "account.validation.failed": "La información de la cuenta no es válida.",
   "duplicate.accounts": "la cuenta ya existe",
-  "local.error.something.went.wrong":"Algo salió mal.",
+  "local.error.something.went.wrong.please.try.again":"Algo salió mal. Por favor inténtalo de nuevo.",
   "local.choose.payment.card":"Elige la tarjeta de pago.",
   "local.maximum.amount.allowed":"El monto máximo permitido es de",
   "local.amount.shouldbe.minimum":"El monto debe ser como mínimo",
   "user.verifyEmail.error": "La vérification de l'e-mail a échoué.",
-  "local.info.emailVerifiedSuccessfully":"E-mail vérifié avec succès."
+  "local.info.emailVerifiedSuccessfully":"E-mail vérifié avec succès.",
+  "local.error.invalid.reCaptchav3.token":"Error en la generación del token Google reCaptchav3."
 }
