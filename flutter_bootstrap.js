@@ -9,8 +9,12 @@ if (!window._flutter) {
 _flutter.buildConfig = {"engineRevision":"f6344b75dcf861d8bf1f1322780b8811f982e31a","builds":[{"compileTarget":"dart2js","renderer":"html","mainJsPath":"main.dart.js"}]};
 
 
+// Modify only the mainJsPath by adding query string
+_flutter.buildConfig.builds[0].mainJsPath = 'main.dart.js?v=' + "1004029291";
+
+//Initialize configuration settings and start the application boot process
 _flutter.loader.load({
-  serviceWorkerSettings: {
-    serviceWorkerVersion: "683093689"
-  }
+    serviceWorkerSettings: {
+        serviceWorkerVersion: "1004029291",
+   }
 });
