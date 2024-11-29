@@ -38,7 +38,9 @@
 
   <title>BillWallet</title>
   <link rel="manifest" href="manifest.json">
-  <script type="text/javascript" src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js" defer></script>
+<!--
+  <script type="text/javascript" src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"></script>
+-->
 </head>
 <body>
   <script>
@@ -46,7 +48,7 @@
       let devBwData = {
         configOptions: {
           "MAINTENANCE_MODE_APPS": [],
-          "RECAPTCHA_ENABLED": true,
+          "RECAPTCHA_ENABLED": false,
           "PAYPAL_PAYLATER_ENABLED": true,
           "PAYPAL_PAYLATER_CLIENTID": "test",
           "PAYPAL_PAYLATER_MERCHANTID": "8XV9TCEJH9N6Q",
@@ -74,7 +76,6 @@
             // Create and inject the reCAPTCHA script dynamically
             const recaptchaScript = document.createElement('script');
             recaptchaScript.src = `https://www.google.com/recaptcha/enterprise.js?render=${recaptchaSiteKey}`;
-            recaptchaScript.defer = true; // Add the defer attribute
             document.head.appendChild(recaptchaScript);
         }
 
@@ -92,16 +93,16 @@ Read more: https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts
 if (!window._flutter) {
   window._flutter = {};
 }
-_flutter.buildConfig = {"engineRevision":"f6344b75dcf861d8bf1f1322780b8811f982e31a","builds":[{"compileTarget":"dart2js","renderer":"html","mainJsPath":"main.dart.js"}]};
+_flutter.buildConfig = {"engineRevision":"f6344b75dcf861d8bf1f1322780b8811f982e31a","builds":[{"compileTarget":"dart2js","renderer":"auto","mainJsPath":"main.dart.js"}]};
 
 
 // Modify only the mainJsPath by adding query string
-_flutter.buildConfig.builds[0].mainJsPath = 'main.dart.js?v=' + "21839684";
+_flutter.buildConfig.builds[0].mainJsPath = 'main.dart.js?v=' + "1879521557";
 
 //Initialize configuration settings and start the application boot process
 _flutter.loader.load({
     serviceWorkerSettings: {
-        serviceWorkerVersion: "21839684",
+        serviceWorkerVersion: "1879521557",
    }
 });
 
