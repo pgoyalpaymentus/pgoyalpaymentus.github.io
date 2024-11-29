@@ -10,11 +10,11 @@ _flutter.buildConfig = {"engineRevision":"f6344b75dcf861d8bf1f1322780b8811f982e3
 
 
 // Modify only the mainJsPath by adding query string
-_flutter.buildConfig.builds[0].mainJsPath = 'main.dart.js?v=' + "2981460023";
+_flutter.buildConfig.builds[0].mainJsPath = 'main.dart.js?v=' + "4015222130";
 
 //Initialize configuration settings and start the application boot process
 _flutter.loader.load({
     serviceWorkerSettings: {
-        serviceWorkerVersion: "2981460023",
+        serviceWorkerVersion: "4015222130",
    }
 });
