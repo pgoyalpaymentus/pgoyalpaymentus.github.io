@@ -1,11 +1,11 @@
 {
-    "name": "BillWallet",
-    "short_name": "BillWallet",
+    "name": "dummy",
+    "short_name": "dummy",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#FFFFFF",
-    "theme_color": "#FFFFFF",
-    "description": "BillWallet™ - The World's first Omni-Channel and Bill Payment Wallet.",
+    "background_color": "#0175C2",
+    "theme_color": "#0175C2",
+    "description": "A new Flutter project.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
