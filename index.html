@@ -18,21 +18,147 @@
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <meta name="description" content="BillWallet™ - The World's first Omni-Channel and Bill Payment Wallet">
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="dummy">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <meta name="apple-mobile-web-app-title" content="BillWallet™">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="icons/favicon-48x48.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="icons/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="icons/favicon-512x512.png">
 
-  <title>dummy</title>
+  <!-- Apple Touch Icon for iOS -->
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+
+  <title>BillWallet</title>
   <link rel="manifest" href="manifest.json">
+  <style>
+    .loading {
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+
+    .loader {
+      border: 8px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 8px solid #3498db;
+      width: 60px !important;
+      height: 60px !important;
+      -webkit-animation: spin 2s linear infinite;
+      animation: spin 2s linear infinite;
+    }
+
+    @-webkit-keyframes spin {
+      0% {
+        -webkit-transform: rotate(0deg);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+      }
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
 </head>
 <body>
-  <script src="flutter_bootstrap.js" async></script>
+<!-- First time loading -->
+<div class="loading">
+  <div class="loader"></div>
+</div>
+<!-- Ensure first time loading progress is gone after app loads -->
+<script>
+  window.addEventListener("flutter-first-frame", function() {
+      var element = document.getElementsByClassName("loading");
+      element[0].parentNode.removeChild(element[0]);
+  });
+</script>
+<script>
+  <!-- https://docs.flutter.dev/platform-integration/web/initialization -->
+  (()=>{var L=()=>navigator.vendor==="Google Inc."||navigator.agent==="Edg/",E=()=>typeof ImageDecoder>"u"?!1:L(),P=()=>typeof Intl.v8BreakIterator<"u"&&typeof Intl.Segmenter<"u",W=()=>{let a=[0,97,115,109,1,0,0,0,1,5,1,95,1,120,0];return WebAssembly.validate(new Uint8Array(a))},w={hasImageCodecs:E(),hasChromiumBreakIterators:P(),supportsWasmGC:W(),crossOriginIsolated:window.crossOriginIsolated};function d(...a){return new URL(_(...a),document.baseURI).toString()}function _(...a){return a.filter(t=>!!t).map((t,i)=>i===0?S(t):j(S(t))).filter(t=>t.length).join("/")}function j(a){let t=0;for(;t<a.length&&a.charAt(t)==="/";)t++;return a.substring(t)}function S(a){let t=a.length;for(;t>0&&a.charAt(t-1)==="/";)t--;return a.substring(0,t)}function T(a,t){return a.canvasKitBaseUrl?a.canvasKitBaseUrl:t.engineRevision&&!t.useLocalCanvasKit?_("https://www.gstatic.com/flutter-canvaskit",t.engineRevision):"canvaskit"}var v=class{constructor(){this._scriptLoaded=!1}setTrustedTypesPolicy(t){this._ttPolicy=t}async loadEntrypoint(t){let{entrypointUrl:i=d("main.dart.js"),onEntrypointLoaded:r,nonce:e}=t||{};return this._loadJSEntrypoint(i,r,e)}async load(t,i,r,e,n){n??=o=>{o.initializeEngine(r).then(l=>l.runApp())};let{entryPointBaseUrl:s}=r;if(t.compileTarget==="dart2wasm")return this._loadWasmEntrypoint(t,i,s,n);{let o=t.mainJsPath??"main.dart.js",l=d(s,o);return this._loadJSEntrypoint(l,n,e)}}didCreateEngineInitializer(t){typeof this._didCreateEngineInitializerResolve=="function"&&(this._didCreateEngineInitializerResolve(t),this._didCreateEngineInitializerResolve=null,delete _flutter.loader.didCreateEngineInitializer),typeof this._onEntrypointLoaded=="function"&&this._onEntrypointLoaded(t)}_loadJSEntrypoint(t,i,r){let e=typeof i=="function";if(!this._scriptLoaded){this._scriptLoaded=!0;let n=this._createScriptTag(t,r);if(e)console.debug("Injecting <script> tag. Using callback."),this._onEntrypointLoaded=i,document.head.append(n);else return new Promise((s,o)=>{console.debug("Injecting <script> tag. Using Promises. Use the callback approach instead!"),this._didCreateEngineInitializerResolve=s,n.addEventListener("error",o),document.head.append(n)})}}async _loadWasmEntrypoint(t,i,r,e){if(!this._scriptLoaded){this._scriptLoaded=!0,this._onEntrypointLoaded=e;let{mainWasmPath:n,jsSupportRuntimePath:s}=t,o=d(r,n),l=d(r,s);this._ttPolicy!=null&&(l=this._ttPolicy.createScriptURL(l));let c=(await import(l)).compileStreaming(fetch(o)),f;t.renderer==="skwasm"?f=(async()=>{let m=await i.skwasm;return window._flutter_skwasmInstance=m,{skwasm:m.wasmExports,skwasmWrapper:m,ffi:{memory:m.wasmMemory}}})():f=Promise.resolve({}),await(await(await c).instantiate(await f)).invokeMain()}}_createScriptTag(t,i){let r=document.createElement("script");r.type="application/javascript",i&&(r.nonce=i);let e=t;return this._ttPolicy!=null&&(e=this._ttPolicy.createScriptURL(t)),r.src=e,r}};async function b(a,t,i){if(t<0)return a;let r,e=new Promise((n,s)=>{r=setTimeout(()=>{s(new Error(`${i} took more than ${t}ms to resolve. Moving on.`,{cause:b}))},t)});return Promise.race([a,e]).finally(()=>{clearTimeout(r)})}var y=class{setTrustedTypesPolicy(t){this._ttPolicy=t}loadServiceWorker(t){if(!t)return console.debug("Null serviceWorker configuration. Skipping."),Promise.resolve();if(!("serviceWorker"in navigator)){let o="Service Worker API unavailable.";return window.isSecureContext||(o+=`
+The current context is NOT secure.`,o+=`
+Read more: https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts`),Promise.reject(new Error(o))}let{serviceWorkerVersion:i,serviceWorkerUrl:r=d(`flutter_service_worker.js?v=${i}`),timeoutMillis:e=4e3}=t,n=r;this._ttPolicy!=null&&(n=this._ttPolicy.createScriptURL(n));let s=navigator.serviceWorker.register(n).then(o=>this._getNewServiceWorker(o,i)).then(this._waitForServiceWorkerActivation);return b(s,e,"prepareServiceWorker")}async _getNewServiceWorker(t,i){if(!t.active&&(t.installing||t.waiting))return console.debug("Installing/Activating first service worker."),t.installing||t.waiting;if(t.active.scriptURL.endsWith(i))return console.debug("Loading from existing service worker."),t.active;{let r=await t.update();return console.debug("Updating service worker."),r.installing||r.waiting||r.active}}async _waitForServiceWorkerActivation(t){if(!t||t.state==="activated")if(t){console.debug("Service worker already active.");return}else throw new Error("Cannot activate a null service worker!");return new Promise((i,r)=>{t.addEventListener("statechange",()=>{t.state==="activated"&&(console.debug("Activated new service worker."),i())})})}};var g=class{constructor(t,i="flutter-js"){let r=t||[/\.js$/,/\.mjs$/];window.trustedTypes&&(this.policy=trustedTypes.createPolicy(i,{createScriptURL:function(e){if(e.startsWith("blob:"))return e;let n=new URL(e,window.location),s=n.pathname.split("/").pop();if(r.some(l=>l.test(s)))return n.toString();console.error("URL rejected by TrustedTypes policy",i,":",e,"(download prevented)")}}))}};var k=a=>{let t=WebAssembly.compileStreaming(fetch(a));return(i,r)=>((async()=>{let e=await t,n=await WebAssembly.instantiate(e,i);r(n,e)})(),{})};var I=(a,t,i,r)=>(window.flutterCanvasKitLoaded=(async()=>{if(window.flutterCanvasKit)return window.flutterCanvasKit;let e=i.hasChromiumBreakIterators&&i.hasImageCodecs;if(!e&&t.canvasKitVariant=="chromium")throw"Chromium CanvasKit variant specifically requested, but unsupported in this browser";let n=e&&t.canvasKitVariant!=="full",s=r;n&&(s=d(s,"chromium"));let o=d(s,"canvaskit.js");a.flutterTT.policy&&(o=a.flutterTT.policy.createScriptURL(o));let l=k(d(s,"canvaskit.wasm")),p=await import(o);return window.flutterCanvasKit=await p.default({instantiateWasm:l}),window.flutterCanvasKit})(),window.flutterCanvasKitLoaded);var U=async(a,t,i,r)=>{let e=d(r,"skwasm.js"),n=e;a.flutterTT.policy&&(n=a.flutterTT.policy.createScriptURL(n));let s=k(d(r,"skwasm.wasm"));return await(await import(n)).default({instantiateWasm:s,locateFile:(l,p)=>{let c=p+l;return c.endsWith(".worker.js")?URL.createObjectURL(new Blob([`importScripts('${c}');`],{type:"application/javascript"})):c},mainScriptUrlOrBlob:e})};var C=class{async loadEntrypoint(t){let{serviceWorker:i,...r}=t||{},e=new g,n=new y;n.setTrustedTypesPolicy(e.policy),await n.loadServiceWorker(i).catch(o=>{console.warn("Exception while loading service worker:",o)});let s=new v;return s.setTrustedTypesPolicy(e.policy),this.didCreateEngineInitializer=s.didCreateEngineInitializer.bind(s),s.loadEntrypoint(r)}async load({serviceWorkerSettings:t,onEntrypointLoaded:i,nonce:r,config:e}={}){e??={};let n=_flutter.buildConfig;if(!n)throw"FlutterLoader.load requires _flutter.buildConfig to be set";let s=u=>{switch(u){case"skwasm":return w.crossOriginIsolated&&w.hasChromiumBreakIterators&&w.hasImageCodecs&&w.supportsWasmGC;default:return!0}},o=(u,m)=>{switch(u.renderer){case"auto":return m=="canvaskit"||m=="html";default:return u.renderer==m}},l=u=>u.compileTarget==="dart2wasm"&&!w.supportsWasmGC||e.renderer&&!o(u,e.renderer)?!1:s(u.renderer),p=n.builds.find(l);if(!p)throw"FlutterLoader could not find a build compatible with configuration and environment.";let c={};c.flutterTT=new g,t&&(c.serviceWorkerLoader=new y,c.serviceWorkerLoader.setTrustedTypesPolicy(c.flutterTT.policy),await c.serviceWorkerLoader.loadServiceWorker(t).catch(u=>{console.warn("Exception while loading service worker:",u)}));let f=T(e,n);p.renderer==="canvaskit"?c.canvasKit=I(c,e,w,f):p.renderer==="skwasm"&&(c.skwasm=U(c,e,w,f));let h=new v;return h.setTrustedTypesPolicy(c.flutterTT.policy),this.didCreateEngineInitializer=h.didCreateEngineInitializer.bind(h),h.load(p,c,e,r,i)}};window._flutter||(window._flutter={});window._flutter.loader||(window._flutter.loader=new C);})();
+//# sourceMappingURL=flutter.js.map
+
+if (!window._flutter) {
+  window._flutter = {};
+}
+_flutter.buildConfig = {"engineRevision":"cb4b5fff73850b2e42bd4de7cb9a4310a78ac40d","builds":[{"compileTarget":"dart2js","renderer":"canvaskit","mainJsPath":"main.dart.js"}]};
+
+
+// Modify only the mainJsPath by adding query string
+_flutter.buildConfig.builds[0].mainJsPath = 'main.dart.js?v=' + "1884559310";
+
+//Initialize configuration settings and start the application boot process
+_flutter.loader.load({
+    serviceWorkerSettings: {
+        serviceWorkerVersion: "1884559310",
+   }
+});
+
+</script>
+<script type="text/javascript" src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js" defer></script>
+<script>
+  try {
+    let devBwData = {
+      configOptions: {
+        "MAINTENANCE_MODE_APPS": [],
+        "RECAPTCHA_ENABLED": true,
+        "PAYPAL_PAYLATER_ENABLED": true,
+        "PAYPAL_PAYLATER_CLIENTID": "test",
+        "PAYPAL_PAYLATER_MERCHANTID": "8XV9TCEJH9N6Q",
+        "EXTERNAL_IDP_GOOGLE_CLIENT_ID": "206615994153-bv15i0m2vn1crq8qe8h9qdr0l3uqhm16.apps.googleusercontent.com",
+        "EXTERNAL_IDP_APPLE_CLIENT_ID": "com.billwallet.dev",
+        "LEGAL_DOC_TERMS_LAST_UPDATED_ON": "2024-01-01",
+        "LEGAL_DOC_PRIVACY_LAST_UPDATED_ON": "2024-01-01",
+        "LEGAL_DOC_AUTHORIZATION_LAST_UPDATED_ON": "2024-01-01",
+        "RECAPTCHA_SITE_KEY":"6LdXZyAqAAAAAMz2p113soOQl_Ian4LYK928R9TI",
+        "SENTRY_DSN.portal":"https://4ebe18838633c156c5d4f643d9516f9c@o4505006683389952.ingest.us.sentry.io/4508178090360832"
+      }
+    };
+
+    let injectedBwData = `<$- model.billWalletData $>`; // this will be replaced by the server before sending the response
+
+    window.billWalletData = /model\.billWalletData/.test(injectedBwData)  // if not replaced by the server
+            ? devBwData   // use the dev BW data
+            : JSON.parse(injectedBwData);  // otherwise, use injected server BW data
+
+      // Check if RECAPTCHA is enabled
+      if (window.billWalletData.configOptions.RECAPTCHA_ENABLED) {
+          // Extract the reCAPTCHA site key from the configuration data
+          const recaptchaSiteKey = window.billWalletData.configOptions.RECAPTCHA_SITE_KEY;
+
+          // Create and inject the reCAPTCHA script dynamically
+          const recaptchaScript = document.createElement('script');
+          recaptchaScript.src = `https://www.google.com/recaptcha/enterprise.js?render=${recaptchaSiteKey}`;
+          recaptchaScript.defer = true;
+          document.head.appendChild(recaptchaScript);
+      }
+
+  } catch (err) {
+    console.log('Unable to parse Bill Wallet initial data');
+    console.error(err);
+  }
+</script>
 </body>
 </html>
