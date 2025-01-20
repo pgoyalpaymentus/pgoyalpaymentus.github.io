@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BillWallet Client Provisioning Tool</title>
+  <style>
+      body {
+          font-family: Arial, sans-serif;
+          margin: 20px;
+      }
+      span.info {
+          font-size: 12px;
+          letter-spacing: 0.2px;
+      }
+      .form-group {
+          margin-bottom: 20px;
+      }
+      label {
+          display: block;
+          margin-bottom: 5px;
+          font-weight: 600;
+      }
+      input[type="text"], textarea {
+          width: 100%;
+          padding: 8px;
+          box-sizing: border-box;
+      }
+      input[type="checkbox"] {
+          margin-left: 10px;
+      }
+      .button-standard {
+          margin-bottom: 5px;
+          padding: 8px 12px;
+          background-color: #007BFF;
+          color: white;
+          border: none;
+          cursor: pointer;
+      }
+      textarea {
+          height: 200px;
+      }
+      #tla {
+          text-transform: uppercase;
+      }
+      div.copy-success {
+          display: none;
+          background-color: #d4edda;
+          border-color: #c3e6cb;
+          color: #155724;
+          padding: 10px;
+      }
+  </style>
+</head>
+<body>
+
+<h1>BillWallet Client Provisioning Tool</h1>
+
+<div class="form-group">
+  <label for="tla">TLA</label>
+  <input type="text" id="tla" name="tla" maxlength="4" autocomplete="off" oninput="updateExternalMerchantIds();updateScript()">
+  <span class="info">This is the TLA for which this client is being generated</span>
+</div>
+
+<div class="form-group">
+  <label for="secretKey">Secret key</label>
+  <button class="button-standard" onclick="generateSecretKey()">Generate random secret key</button>
+  <input type="text" id="secretKey" name="secretKey" readonly>
+  <span class="info">This secret key can be used by the biller to call our BillWallet APIs.
+    Ensure that you copy this secret key into a safe place to give it to the biller later.<br/>
+    &#x26A0; You won't be able to recover this secret key once you leave this page</span>
+</div>
+
+<div class="form-group">
+  <label for="allowedURLs">Allowed URLs (Comma-separated list)</label>
+  <input type="text" id="allowedURLs" name="allowedURLs" autocomplete="off" oninput="updateScript()">
+  <span class="info">Enter the list of URLs (separated by comma) from which this client is allowed
+    to display the BillWallet widget on. URLs should start with https://. Example: https://demo.paymentus.org</span>
+</div>
+
+<div class="form-group">
+  <label for="showAdvanced">Show Advanced Options?
+    <input type="checkbox" id="showAdvanced" name="showAdvanced" onclick="showAdvancedOptions();">
+  </label>
+</div>
+
+<div id="advancedOptions" style="display: none;">
+  <div class="form-group">
+    <label for="isInternal">Is Internal Client Id?
+      <input type="checkbox" id="isInternal" name="isInternal" onclick="updateScript()">
+    </label>
+    <span class="info">Check this if you're generating a client id for an internal client. This is never the case for billers</span>
+  </div>
+
+  <div class="form-group">
+    <label for="externalMerchantIds">Client Codes (Comma-separated list)</label>
+    <input type="text" id="externalMerchantIds" name="externalMerchantIds" autocomplete="off" oninput="updateScript()">
+    <span class="info">All client codes in this list will be able to make use of this client id.
+      You can include more than one client code in this list in special scenarios, but typically
+      this list will only include a single client code</span>
+  </div>
+
+  <div class="form-group">
+    <label for="scope">Scope (Comma-separated list)</label>
+    <input type="text" id="scope" name="scope" autocomplete="off" oninput="updateScript()">
+    <span class="info">Scopes are permissions or roles that indicate what actions, such as creating invites,
+      creating merchant tokens, etc, are allowed for this client.<br/>
+      For a basic implementation, no scopes are needed. For advanced implementations, check which permissions are required
+      and add the scopes above. Separate them with commas. Available options: agent-jwt, ivr-jwt, invite, client-token, and fast-signup</span>
+  </div>
+
+</div>
+
+<div class="form-group">
+  <label for="outputScript">Output Script</label>
+  <textarea id="outputScript" name="outputScript" readonly></textarea>
+  <button class="button-standard" onclick="copyScript()">Copy script</button>
+</div>
+
+<div class="copy-success">
+  <span>Script successfully copied to clipboard</span>
+</div>
+
+<script>
+    function tlaToClientCode(tla) {
+        let len = tla.length;
+        if (len < 3 || len > 4) {
+            return undefined;
+        }
+        let tlaParts = tla.toUpperCase().split('');
+        let value = tlaParts.map(a => a.charCodeAt(0)).reduce(((previous, current) => previous + current), '80') + '00';
+        return value.slice(0, 10);
+    }
+
+    function updateExternalMerchantIds() {
+        const tla = document.getElementById('tla').value.toUpperCase();
+        const clientCode = tlaToClientCode(tla);
+        if (clientCode) {
+            document.getElementById('externalMerchantIds').value = clientCode;
+        } else {
+            document.getElementById('externalMerchantIds').value = "";
+        }
+    }
+
+    function generateSecretKey() {
+        const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let result = '';
+        for (let i = 0; i < 40; i++) {
+            result += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        document.getElementById('secretKey').value = result;
+        updateScript();
+    }
+
+    function sha256(message) {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(message);
+        return crypto.subtle.digest('SHA-256', data).then(hashBuffer => {
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+        });
+    }
+
+    async function updateScript() {
+        const tla = document.getElementById('tla').value.toUpperCase();
+        const isInternal = document.getElementById('isInternal').checked;
+        const externalMerchantIds = document.getElementById('externalMerchantIds').value;
+        const scope = document.getElementById('scope').value;
+        const allowedURLs = document.getElementById('allowedURLs').value;
+        const secretKey = document.getElementById('secretKey').value;
+
+        let secretHash = '';
+        if (secretKey) {
+            secretHash = await sha256(secretKey);
+        }
+
+        let allowedURLsList = [];
+        const isValidURL = (url) => /^https:\/\/[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(:[0-9]+)?(\/.*)?$/.test(url);
+        if (allowedURLs) {
+            allowedURLsList = allowedURLs.split(',').filter(u => !!u).map(u => u.trim()).filter(u => isValidURL(u));
+        }
+
+        const scriptTemplate = `// Corresponding secret key (should be provided to the biller): ${secretKey}
+db.bill_wallet_clients.insertOne({
+    active: true,
+    isInternal: ${isInternal},
+    description: "Client Id for ${tla} client",
+    scope: [${(scope || "").split(',').filter(s => !!s).map(s => `"${s.trim()}"`)}],
+    externalMerchantIdList: [${(externalMerchantIds || "").split(',').filter(m => !!m).map(s => `"${s.trim()}"`)}],
+    validReferers: [${(allowedURLsList).map(r => `"${r}"`)}],
+    secretHash: "${secretHash}",
+    createdOn: new Date(),
+    modifiedOn: new Date()
+})`;
+
+        document.getElementById('outputScript').value = scriptTemplate;
+
+        const copySuccess = document.querySelector('.copy-success');
+        copySuccess.style.display = 'none';
+    }
+
+    async function copyScript() {
+
+        try {
+            const textArea = document.getElementById('outputScript');
+            await navigator.clipboard.writeText(textArea.value);
+            const copySuccess = document.querySelector('.copy-success');
+            copySuccess.style.display = 'block';
+        } catch (err) {
+            const script = document.getElementById('outputScript');
+            script.select();
+            script.setSelectionRange(0, 99999);
+            document.execCommand('copy');
+            const copySuccess = document.querySelector('.copy-success');
+            copySuccess.style.display = 'block';
+        }
+    }
+
+    function showAdvancedOptions() {
+        const showAdvanced = document.getElementById('showAdvanced').checked;
+        const advancedOptions = document.getElementById('advancedOptions');
+        advancedOptions.style.display = showAdvanced ? 'block' : 'none';
+    }
+
+</script>
+
+</body>
+</html>

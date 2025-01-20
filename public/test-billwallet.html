@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+	@import url(https://fonts.googleapis.com/css?family=Cabin:400,500,600,700);
+	h1, p {
+		font-family: Arial;
+		margin-left: 5px;
+	}
+	input, button {
+		font-size: 15px;
+		padding: 5px;
+		margin: 5px;
+		border-radius: 5px;
+	}
+	input.lg {
+		width: 450px;
+	}
+	button {
+		background-color: lightblue;
+		border: none;
+		cursor: pointer;
+	}
+	
+	label {
+		font-weight: bold;
+		font-family: Arial;
+		margin-left: 5px;
+		margin-top: 10px;
+		display: inline-block; 
+		width: 200px;
+	}
+	label.env {
+		width: 70px;
+	}
+	span#error {
+		display: none;
+		font-family: Arial;
+		color: red;
+		margin-top: 10px;
+	}
+	span#success {
+		display: none;
+		font-family: Arial;
+		margin-top: 10px;
+		color: green;
+	}
+	a#bw-button {
+		display: none;
+	}
+	
+	/* BillWallet CSS */
+	.bw-button-inner {
+	  width: 384px;
+	  background: url('https://secure2.paymentus.com/rotp/www/img/bill-wallet/bill-wallet-button-background.png') no-repeat;
+	
+	  border-radius: 4px;
+	
+	  display: flex;
+	  flex-direction: column;
+	  justify-content: center;
+	  align-items: flex-start;
+	  padding: 8px 14px;
+	  gap: 10px;
+	
+	  flex: none;
+	  order: 2;
+	  align-self: stretch;
+	  flex-grow: 0;
+	}
+	
+	.bw-button-label {
+	  color: white;
+	  font-family: 'Cabin';
+	  font-style: normal;
+	  font-weight: 700;
+	  font-size: 16px;
+	  line-height: 19px;
+	  letter-spacing: 0.46px;
+	
+	  display: flex;
+	  flex-direction: row;
+	  align-items: center;
+	  padding: 0px;
+	  gap: 10px;
+	}
+	
+	#divBwButton {
+		margin-left: 5px;
+		padding-left: 200px;
+	}
+	
+	</style>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+	<div>
+		<h1>BillWallet testing page</h1>
+		<p>Use this page to load the BillWallet consumer widget for any TLA</p>
+		<hr/>
+	</div>
+	
+	<div>
+		<label for="tla">TLA</label>
+		<input type="text" id="tla">
+	</div>
+
+	<div>
+		<label>Environment:</label>
+		<label class="env"><input type="radio" id="local" name="environment" value="local" checked>Local</label>
+		<label class="env"><input type="radio" id="sit" name="environment" value="sit">SIT</label>
+		<label class="env"><input type="radio" id="uat" name="environment" value="uat">UAT</label>
+	</div>
+
+	<div>
+		<label for="sdk">SDK</label>
+		<input class="lg" type="text" id="sdk">
+	</div>
+
+	<div>
+		<label for="accessTokenEndpoint">Access Token Endpoint</label>
+		<input class="lg" type="text" id="accessTokenEndpoint">
+	</div>
+
+	<div>
+		<label for="clientTokenEndpoint">Client Token Endpoint</label>
+		<input class="lg" type="text" id="clientTokenEndpoint">
+	</div>
+
+	<div>
+		<label for="clientId">Client Id</label>
+		<input type="text" id="clientId" value="">
+	</div>
+	
+	<div>
+		<label for="clientSecret">Client Secret</label>
+		<input type="password" id="clientSecret" value="">
+	</div>
+
+	<div>	
+		<label for="btn"></label>
+		<button id="btn">Render BillWallet Button</button>
+	</div>
+	
+	<div>
+		<label>&nbsp;</label>
+		<span id="error">Error while rendering the BillWallet Button. Check the console for details</span>
+		<span id="success">Click on the button below to open Bill Wallet. To re-render the button, reload this page</span>
+		<hr/>
+	</div>
+	
+	<div id="divBwButton">
+		<a id="bw-button" href="javascript:void(0)">
+		    <div class="bw-button-inner">
+		        <div class="bw-button-label">
+		            <img src="https://secure2.paymentus.com/rotp/www/img/bill-wallet/bill-wallet-icon.png" alt="Bill Wallet Icon">
+		            Pay with BillWallet
+		        </div>
+		    </div>
+		</a>
+	</div>
+		
+	<script>
+		// Init
+		$(function() {
+			updateEnvVal($(':radio[name="environment"]:checked').val());
+			
+			$(':radio[name="environment"]').change(function() {
+				var env = $(this).filter(':checked').val();
+				updateEnvVal(env);
+			});
+			
+			$("#btn").click(renderBillWalletClick);
+		});
+		
+		function renderBillWalletClick() {
+			var externalMerchantId = tlaToClientCode($("#tla").val());
+			if (!externalMerchantId) {
+				alert('Please enter TLA');
+				return;
+			}
+			
+			if (!$('#clientId').val()) {
+				alert('Please enter client id');
+				return;
+			}
+			
+			if (!$('#clientSecret').val()) {
+				alert('Please enter client secret');
+				return;
+			}
+			
+			$("#btn").prop('disabled', true);
+			$("#tla").prop('disabled', true);
+			
+			var sdk = $("#sdk").val();
+			console.log('Loading SDK from: ' + sdk);
+
+			// Load the SDK
+			$.getScript(sdk)
+				.done(successLoadingSDK)
+				.fail(errorLoadingSDK);			
+		}
+		
+		function successLoadingSDK() {
+			// Get an auth token
+			var data = {
+				grant_type: "client_credentials",
+				client_id: $('#clientId').val(),
+				client_secret: $('#clientSecret').val(),
+				external_merchant_id: tlaToClientCode($("#tla").val())
+			}
+
+			// Use jQuery ajax method to post the data to token endpoint to get an access token
+			$.ajax({
+				type: "POST",
+				url: $("#accessTokenEndpoint").val(),
+				data: JSON.stringify(data),
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				success: createClientToken,
+				error: errorLoadingAuthToken
+			});
+		}
+
+		function createClientToken(authTokenResponse) {
+			// Use jQuery ajax method to post the data to get a client token
+			$.ajax({
+				type: "POST",
+				url: $("#clientTokenEndpoint").val(),
+				data: JSON.stringify({
+					channel: "BW_ROTP"
+				}),
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				headers: {
+					"Authorization": "Bearer " + authTokenResponse.access_token
+				},
+				success: successCreatingClientToken,
+				error: errorCreatingClientToken
+			});
+		}
+
+		function errorLoadingAuthToken() {
+			$("span#error").show();
+		}
+
+		function errorLoadingSDK() {
+			$("span#error").show();
+		}
+		
+		function successCreatingClientToken(response) {
+			$("span#success").show();
+			
+            var bwOptions = {
+                clientToken: response.clientToken,
+                autoOpen: false
+            }
+            
+            var billWallet = new BillWallet(bwOptions).mount('bw-button');			
+            $("a#bw-button").show();
+		}
+		
+		function errorCreatingClientToken() {
+			$("span#error").show();
+		}
+		
+		function updateEnvVal(env) {
+			switch (env) {
+			case 'local':
+				$('#sdk').val('https://bw-k8-dev.paymentus.io:31443/sdk/consumer/v1');
+				$('#accessTokenEndpoint').val('https://bw-k8-dev.paymentus.io:31443/api/v1/auth/token');
+				$('#clientTokenEndpoint').val('https://bw-k8-dev.paymentus.io:31443/api/v1/client-token/create');
+				break;
+			case 'sit':
+				$('#sdk').val('https://bw-acn.paymentus.io/sdk/consumer/v1');
+				$('#accessTokenEndpoint').val('https://bw-acn.paymentus.io/api/v1/auth/token');
+				$('#clientTokenEndpoint').val('https://bw-acn.paymentus.io/api/v1/client-token/create');
+				break;
+			case 'uat':
+				$('#sdk').val('https://bw-sec3.paymentus.net/sdk/consumer/v1');
+				$('#accessTokenEndpoint').val('https://bw-sec3.paymentus.net/api/v1/auth/token');
+				$('#clientTokenEndpoint').val('https://bw-sec3.paymentus.net/api/v1/client-token/create');
+				break;
+			}			
+		}
+		
+		function tlaToClientCode(tla) {
+			var len = tla.length;
+			if (len < 3 || len > 4) {
+				return undefined;
+			}
+			var tlaParts = tla.toUpperCase().split('');
+			var value = tlaParts.map(a => a.charCodeAt(0)).reduce(((previous, current) => previous + current), '80') + '00';
+			return value.slice(0, 10);
+		}
+
+	</script>
+
+</body>
+</html>
