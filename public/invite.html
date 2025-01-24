@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BillWallet - Approve Invite</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        header {
+            background-color: #f1f1f1;
+            padding: 10px;
+            text-align: center;
+        }
+        img {
+            max-width: 200px;
+        }
+        main {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h2 {
+            margin-top: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        button[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .errorMessage {
+            color: red;
+        }
+
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <header>
+        <img src="https://bw-acn.paymentus.io/widget/consumer/bill_wallet_logo.png" alt="BillWallet">
+    </header>
+    <main>
+        <form id="dataForm" style="display: none;">
+            <h1>You've been invited to BillWallet</h1>
+            <h2>Select Accounts:</h2>
+            <div id="accountOptions">
+            </div>
+            <h2>Select Payment Methods:</h2>
+            <div id="paymentMethodOptions">
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+        <div id="summary" style="display: none;">
+            <h2>Summary Status:</h2>
+            <div id="statusMessage"></div>
+        </div>
+        <div id="error" style="display: none;">
+        </div>
+    </main>
+    <script>
+
+        const host = window.location.host;
+        let apiHost = 'http://localhost:1589';
+
+        if (/bw-acn.paymentus.io/.test(host)) {
+            apiHost = 'https://bw-acn.paymentus.io';
+        } else if (/bw-k8-dev.paymentus.io/.test(host)) {
+            apiHost = 'https://bw-k8-dev.paymentus.io:31443';
+        }
+
+        console.log(`Using apiHost=${apiHost}`);
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const inviteId = urlParams.get('invite');
+
+        if (!inviteId) {
+            const divError = $('#error');
+            divError.append(`<p class="errorMessage">No invite provided</p>`);
+            divError.show();
+        } else {
+            // Fetch data from API
+            $.get(`${apiHost}/api/v1/invites/${inviteId}`, function(data) {
+                const dataForm = $('#dataForm');
+                dataForm.show();
+
+                // Populate account options
+                const accountOptions = data.accounts.map(account => `
+                <label>
+                    <input type="checkbox" name="accounts" value="${account.id}">
+                    ${account.accountNumber} - ${account.paymentType}
+                </label><br>
+            `).join('');
+                $('#accountOptions').html(accountOptions);
+
+                // Populate payment method options
+                const paymentMethodOptions = data.paymentMethods.map(method => `
+                <label>
+                    <input type="checkbox" name="paymentMethods" value="${method.id}">
+                    ${method.methodType} - ${method.accountNumber}
+                </label><br>
+            `).join('');
+                $('#paymentMethodOptions').html(paymentMethodOptions);
+
+                // Submit form via Ajax
+                $('#dataForm').submit(function(event) {
+                    event.preventDefault();
+                    const selectedAccounts = $("input[name='accounts']:checked").map(function () {
+                        return parseInt(this.value);
+                    }).get();
+                    const selectedPaymentMethods = $("input[name='paymentMethods']:checked").map(function () {
+                        return parseInt(this.value);
+                    }).get();
+
+                    const payload = {
+                        accounts: selectedAccounts,
+                        paymentMethods: selectedPaymentMethods
+                    };
+
+                    $.ajax({
+                        type: 'POST',
+                        url: `${apiHost}/api/v1/invites/${inviteId}/approve`,
+                        data: JSON.stringify(payload),
+                        contentType: 'application/json',
+                        success: function(response) {
+                            const summary = $('#summary');
+                            const statusMessage = $('#statusMessage');
+                            statusMessage.empty();
+
+                            const dataForm = $('#dataForm');
+                            dataForm.hide();
+
+                            if (response.accounts && response.accounts.length > 0) {
+                                response.accounts.forEach(account => {
+                                    statusMessage.append(`<p>Account ${account.accountNumber}: ${account.status}</p>`);
+                                });
+                            } else {
+                                statusMessage.text('No accounts added');
+                            }
+
+                            statusMessage.append(`<a href="${apiHost}">Go to BillWallet Portal</a>`);
+
+                            summary.show();                    },
+                        error: function(error) {
+                            const divError = $('#error');
+                            divError.append(`<p class="errorMessage">Error while approving this invite</p>`);
+                            divError.show();
+                        }
+                    });
+                });
+            }).fail(function(error) {
+                const divError = $('#error');
+                if (error.responseJSON && error.responseJSON.message) {
+                    divError.append(`<p class="errorMessage">${error.responseJSON.message}</p>`);
+                } else {
+                    divError.append(`<p class="errorMessage">Unable to retrieve this invite, check console for details</p>`);
+                }
+                divError.show();
+            });
+        }
+
+    </script>
+</body>
+</html>
