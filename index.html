@@ -44,11 +44,7 @@
       visibility: hidden;
     }
 
-     body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden; /* Prevents scrolling during loading */
-  }
+
 
     .loading {
       display: flex;
@@ -63,7 +59,7 @@
       transform: translate(-50%, -50%);
       width: 100%; /* Ensure it takes full viewport width */
       height: 100%; /* Ensure it takes full viewport height */
-      background: green; /* Optional: Set a consistent background color */
+      background: white; /* Optional: Set a consistent background color */
       z-index: 9999; /* Ensure it's always on top */
     }
 
@@ -122,12 +118,12 @@ _flutter.buildConfig = {"engineRevision":"cb4b5fff73850b2e42bd4de7cb9a4310a78ac4
 
 
 // Modify only the mainJsPath by adding query string
-_flutter.buildConfig.builds[0].mainJsPath = 'main.dart.js?v=' + "1485678622";
+_flutter.buildConfig.builds[0].mainJsPath = 'main.dart.js?v=' + "3395567317";
 
 //Initialize configuration settings and start the application boot process
 _flutter.loader.load({
     serviceWorkerSettings: {
-        serviceWorkerVersion: "1485678622",
+        serviceWorkerVersion: "3395567317",
    }
 });
 
